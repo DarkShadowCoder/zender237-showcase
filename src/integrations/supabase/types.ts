@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      support_requests: {
+        Row: {
+          amount: number | null
+          completed_at: string | null
+          consent: boolean
+          created_at: string
+          email: string
+          id: string
+          kind: string
+          message: string
+          name: string
+          operation_date: string | null
+          phone: string
+          reference: string
+          status: string
+          subject: string
+          team_response: string | null
+          transaction_reference: string
+        }
+        Insert: {
+          amount?: number | null
+          completed_at?: string | null
+          consent: boolean
+          created_at?: string
+          email?: string
+          id?: string
+          kind: string
+          message: string
+          name: string
+          operation_date?: string | null
+          phone?: string
+          reference: string
+          status?: string
+          subject: string
+          team_response?: string | null
+          transaction_reference?: string
+        }
+        Update: {
+          amount?: number | null
+          completed_at?: string | null
+          consent?: boolean
+          created_at?: string
+          email?: string
+          id?: string
+          kind?: string
+          message?: string
+          name?: string
+          operation_date?: string | null
+          phone?: string
+          reference?: string
+          status?: string
+          subject?: string
+          team_response?: string | null
+          transaction_reference?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
