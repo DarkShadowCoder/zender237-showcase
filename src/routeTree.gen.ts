@@ -10,33 +10,206 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AProposRouteImport } from './routes/a-propos'
+import { Route as AideRouteImport } from './routes/aide'
+import { Route as CommentCaMarcheRouteImport } from './routes/comment-ca-marche'
+import { Route as ConditionsGeneralesRouteImport } from './routes/conditions-generales'
+import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CookiesRouteImport } from './routes/cookies'
+import { Route as InformationsServicesRouteImport } from './routes/informations-services'
+import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
+import { Route as ReclamationsRouteImport } from './routes/reclamations'
+import { Route as SecuriteRouteImport } from './routes/securite'
+import { Route as SuppressionCompteRouteImport } from './routes/suppression-compte'
+import { Route as TarifsRouteImport } from './routes/tarifs'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AProposRoute = AProposRouteImport.update({
+  id: '/a-propos',
+  path: '/a-propos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AideRoute = AideRouteImport.update({
+  id: '/aide',
+  path: '/aide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommentCaMarcheRoute = CommentCaMarcheRouteImport.update({
+  id: '/comment-ca-marche',
+  path: '/comment-ca-marche',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConditionsGeneralesRoute = ConditionsGeneralesRouteImport.update({
+  id: '/conditions-generales',
+  path: '/conditions-generales',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
+  id: '/confidentialite',
+  path: '/confidentialite',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InformationsServicesRoute = InformationsServicesRouteImport.update({
+  id: '/informations-services',
+  path: '/informations-services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
+  id: '/mentions-legales',
+  path: '/mentions-legales',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReclamationsRoute = ReclamationsRouteImport.update({
+  id: '/reclamations',
+  path: '/reclamations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SecuriteRoute = SecuriteRouteImport.update({
+  id: '/securite',
+  path: '/securite',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuppressionCompteRoute = SuppressionCompteRouteImport.update({
+  id: '/suppression-compte',
+  path: '/suppression-compte',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TarifsRoute = TarifsRouteImport.update({
+  id: '/tarifs',
+  path: '/tarifs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
+  '/aide': typeof AideRoute
+  '/comment-ca-marche': typeof CommentCaMarcheRoute
+  '/conditions-generales': typeof ConditionsGeneralesRoute
+  '/confidentialite': typeof ConfidentialiteRoute
+  '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
+  '/informations-services': typeof InformationsServicesRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/reclamations': typeof ReclamationsRoute
+  '/securite': typeof SecuriteRoute
+  '/suppression-compte': typeof SuppressionCompteRoute
+  '/tarifs': typeof TarifsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
+  '/aide': typeof AideRoute
+  '/comment-ca-marche': typeof CommentCaMarcheRoute
+  '/conditions-generales': typeof ConditionsGeneralesRoute
+  '/confidentialite': typeof ConfidentialiteRoute
+  '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
+  '/informations-services': typeof InformationsServicesRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/reclamations': typeof ReclamationsRoute
+  '/securite': typeof SecuriteRoute
+  '/suppression-compte': typeof SuppressionCompteRoute
+  '/tarifs': typeof TarifsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
+  '/aide': typeof AideRoute
+  '/comment-ca-marche': typeof CommentCaMarcheRoute
+  '/conditions-generales': typeof ConditionsGeneralesRoute
+  '/confidentialite': typeof ConfidentialiteRoute
+  '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
+  '/informations-services': typeof InformationsServicesRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/reclamations': typeof ReclamationsRoute
+  '/securite': typeof SecuriteRoute
+  '/suppression-compte': typeof SuppressionCompteRoute
+  '/tarifs': typeof TarifsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/a-propos'
+    | '/aide'
+    | '/comment-ca-marche'
+    | '/conditions-generales'
+    | '/confidentialite'
+    | '/contact'
+    | '/cookies'
+    | '/informations-services'
+    | '/mentions-legales'
+    | '/reclamations'
+    | '/securite'
+    | '/suppression-compte'
+    | '/tarifs'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/a-propos'
+    | '/aide'
+    | '/comment-ca-marche'
+    | '/conditions-generales'
+    | '/confidentialite'
+    | '/contact'
+    | '/cookies'
+    | '/informations-services'
+    | '/mentions-legales'
+    | '/reclamations'
+    | '/securite'
+    | '/suppression-compte'
+    | '/tarifs'
+  id:
+    | '__root__'
+    | '/'
+    | '/a-propos'
+    | '/aide'
+    | '/comment-ca-marche'
+    | '/conditions-generales'
+    | '/confidentialite'
+    | '/contact'
+    | '/cookies'
+    | '/informations-services'
+    | '/mentions-legales'
+    | '/reclamations'
+    | '/securite'
+    | '/suppression-compte'
+    | '/tarifs'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AProposRoute: typeof AProposRoute
+  AideRoute: typeof AideRoute
+  CommentCaMarcheRoute: typeof CommentCaMarcheRoute
+  ConditionsGeneralesRoute: typeof ConditionsGeneralesRoute
+  ConfidentialiteRoute: typeof ConfidentialiteRoute
+  ContactRoute: typeof ContactRoute
+  CookiesRoute: typeof CookiesRoute
+  InformationsServicesRoute: typeof InformationsServicesRoute
+  MentionsLegalesRoute: typeof MentionsLegalesRoute
+  ReclamationsRoute: typeof ReclamationsRoute
+  SecuriteRoute: typeof SecuriteRoute
+  SuppressionCompteRoute: typeof SuppressionCompteRoute
+  TarifsRoute: typeof TarifsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +221,115 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/a-propos': {
+      id: '/a-propos'
+      path: '/a-propos'
+      fullPath: '/a-propos'
+      preLoaderRoute: typeof AProposRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/aide': {
+      id: '/aide'
+      path: '/aide'
+      fullPath: '/aide'
+      preLoaderRoute: typeof AideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comment-ca-marche': {
+      id: '/comment-ca-marche'
+      path: '/comment-ca-marche'
+      fullPath: '/comment-ca-marche'
+      preLoaderRoute: typeof CommentCaMarcheRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conditions-generales': {
+      id: '/conditions-generales'
+      path: '/conditions-generales'
+      fullPath: '/conditions-generales'
+      preLoaderRoute: typeof ConditionsGeneralesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/confidentialite': {
+      id: '/confidentialite'
+      path: '/confidentialite'
+      fullPath: '/confidentialite'
+      preLoaderRoute: typeof ConfidentialiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/informations-services': {
+      id: '/informations-services'
+      path: '/informations-services'
+      fullPath: '/informations-services'
+      preLoaderRoute: typeof InformationsServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentions-legales': {
+      id: '/mentions-legales'
+      path: '/mentions-legales'
+      fullPath: '/mentions-legales'
+      preLoaderRoute: typeof MentionsLegalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reclamations': {
+      id: '/reclamations'
+      path: '/reclamations'
+      fullPath: '/reclamations'
+      preLoaderRoute: typeof ReclamationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/securite': {
+      id: '/securite'
+      path: '/securite'
+      fullPath: '/securite'
+      preLoaderRoute: typeof SecuriteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/suppression-compte': {
+      id: '/suppression-compte'
+      path: '/suppression-compte'
+      fullPath: '/suppression-compte'
+      preLoaderRoute: typeof SuppressionCompteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tarifs': {
+      id: '/tarifs'
+      path: '/tarifs'
+      fullPath: '/tarifs'
+      preLoaderRoute: typeof TarifsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AProposRoute: AProposRoute,
+  AideRoute: AideRoute,
+  CommentCaMarcheRoute: CommentCaMarcheRoute,
+  ConditionsGeneralesRoute: ConditionsGeneralesRoute,
+  ConfidentialiteRoute: ConfidentialiteRoute,
+  ContactRoute: ContactRoute,
+  CookiesRoute: CookiesRoute,
+  InformationsServicesRoute: InformationsServicesRoute,
+  MentionsLegalesRoute: MentionsLegalesRoute,
+  ReclamationsRoute: ReclamationsRoute,
+  SecuriteRoute: SecuriteRoute,
+  SuppressionCompteRoute: SuppressionCompteRoute,
+  TarifsRoute: TarifsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
