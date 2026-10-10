@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight, ShieldCheck, Receipt, Smartphone, History, He
 import lifestyle from '@/assets/zender-lifestyle.jpg';
 import { DownloadButton, AssistanceBand } from '@/components/zender-shared';
 import { pageHead } from '@/lib/page-head';
+import { Button } from '@/components/ui/button';
 
 export const Route = createFileRoute('/')({
   head: () => pageHead('Vos opérations, simplement', 'Zender237 : l’application Android pour préparer, suivre et retrouver vos opérations depuis votre téléphone.', '/'),
@@ -18,19 +19,21 @@ const faqs = [
 
 function Home() {
   return <>
-    <section className="hero"><div className="site-container">
+    <section className="hero"><img src={lifestyle} alt="Une utilisatrice consulte son téléphone" className="hero-photo"/><div className="hero-scrim"/><div className="site-container hero-content">
       <span className="eyebrow"><span className="eyebrow-dot" />Application Android · Cameroun</span>
-      <h1 data-reveal className="reveal">Zender<span className="brand-number">237</span></h1>
-      <p className="hero-tagline">Vos opérations, simplement.</p>
+      <h1 data-reveal>Zender<span className="brand-number">237</span><span className="hero-period">.</span></h1>
+      <p className="hero-tagline" data-reveal>Vos opérations,<br/>simplement.</p>
       <p className="hero-description">Préparez vos opérations, consultez les frais avant de valider et suivez chaque transaction depuis votre téléphone, en toute transparence.</p>
-      <div className="hero-actions"><DownloadButton /><Link to="/comment-ca-marche" className="btn-brand inline-flex items-center gap-2 rounded-md border border-border px-5 font-medium">Comment ça marche <ArrowRight size={16} /></Link></div>
-      <div className="bento">
-        <div className="bento-item lifestyle-tile"><img src={lifestyle} alt="Utilisatrice consultant l’application Zender237 sur son téléphone" className="h-full w-full object-cover" /><div className="lifestyle-caption"><h3>Au quotidien</h3><p>Vos demandes, où que vous soyez.</p></div></div>
+      <div className="hero-actions"><DownloadButton light/><Button asChild variant="ghost" className="btn-brand hero-secondary"><Link to="/comment-ca-marche">Comment ça marche <ArrowRight size={16} /></Link></Button></div>
+      <div className="hero-bottom"><span>01 / L’essentiel, à portée de main</span><a href="#au-quotidien" aria-label="Découvrir la suite"><ArrowRight size={23}/></a></div>
+    </div></section>
+    <section className="daily-section" id="au-quotidien"><div className="site-container"><div className="daily-heading" data-reveal><span className="eyebrow">Au quotidien</span><h2>Moins de doutes.<br/><span>Plus de visibilité.</span></h2><p>Vos demandes, vos frais, votre suivi.<br/>L’essentiel réuni au même endroit.</p></div>
+      <div className="bento" data-reveal>
         <div className="bento-item phone-tile"><div className="phone-grid" /><div className="phone"><span className="phone-notch" /><div className="phone-status"><span>9:41</span><span>●●●</span></div><div className="phone-greeting"><div>Bonjour<strong>Aïcha</strong></div><span className="phone-avatar">A</span></div><div className="phone-balance"><span>Opérations du mois</span><strong>3 suivies</strong></div><div className="phone-tools">{[Smartphone, Receipt, History, Headphones].map((I, i) => <span className="phone-tool" key={i}><i><I size={15} /></i>{['Opérer', 'Frais', 'Historique', 'Aide'][i]}</span>)}</div>{['Retrait confirmé', 'Demande en cours'].map((t, i) => <div className="phone-row" key={t}><span className="phone-row-icon"><Check size={12} /></span><span><strong>{t}</strong><small>Aujourd’hui · ZEN-0{i + 1}</small></span><span>FCFA</span></div>)}</div><span className="phone-note">Illustration non contractuelle</span></div>
-        <Link to="/tarifs" className="bento-item fees-tile"><span className="tile-icon"><Receipt size={18} /></span><ArrowUpRight className="tile-arrow" /><h3>Frais affichés avant validation</h3><p>5 % jusqu’à 50 000 FCFA, 3 % au-delà.</p></Link>
+        <Link to="/tarifs" className="bento-item fees-tile" data-tilt><span className="tile-icon"><Receipt size={18} /></span><ArrowUpRight className="tile-arrow" /><span className="fee-display">5<span>%</span> <small>/ 3 %</small></span><h3>Frais affichés avant validation</h3><p>Grille indicative : 5 % jusqu’à 50 000 FCFA, 3 % au-delà.</p></Link>
         <Link to="/securite" className="bento-item security-tile"><span className="tile-icon"><ShieldCheck size={18} /></span><ArrowUpRight className="tile-arrow" /><h3>Sécurité d’abord</h3><p>Ne partagez jamais votre code secret.</p></Link>
       </div>
-      <div className="hero-trust"><span><Lock size={14} />Données protégées</span><span><Receipt size={14} />Frais transparents</span><span><Headphones size={14} />Assistance dédiée</span></div>
+      <div className="hero-trust"><span><Lock size={14} />Gardez votre code secret</span><span><Receipt size={14} />Consultez vos frais</span><span><Headphones size={14} />Contactez l’assistance</span></div>
     </div></section>
 
     <section className="section"><div className="site-container">
@@ -39,7 +42,7 @@ function Home() {
         [Smartphone, 'Tout depuis votre téléphone', 'Créez votre compte et préparez vos opérations en quelques étapes.', '/comment-ca-marche'],
         [Receipt, 'Des frais transparents', 'Le montant des frais est calculé et affiché avant toute confirmation.', '/tarifs'],
         [History, 'Un suivi à chaque étape', 'Retrouvez l’historique et le statut de vos transactions à tout moment.', '/aide'],
-      ].map(([I, t, d, to]: any) => <article className="feature-card" data-reveal key={t}><span className="tile-icon"><I size={18} /></span><h3>{t}</h3><p>{d}</p><Link to={to}>En savoir plus <ArrowRight size={14} /></Link></article>)}</div>
+      ].map(([I, t, d, to]: any, i) => <article className="feature-card" data-reveal key={t}><div className="feature-top"><span className="tile-icon"><I size={18} /></span><span className="feature-index">0{i+1}</span></div><h3>{t}</h3><p>{d}</p><Link to={to}>En savoir plus <ArrowRight size={14} /></Link></article>)}</div>
     </div></section>
 
     <section className="section how-band"><div className="site-container">

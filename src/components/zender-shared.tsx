@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router';
+import { Link, useRouterState } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowDownToLine, ArrowUpRight, Menu, X, ArrowRight, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -11,8 +11,9 @@ export function Brand() { return <Link to="/" className="brand" aria-label="Zend
 export function DownloadButton({ light = false, compact = false }: { light?: boolean; compact?: boolean }) {
  const [open, setOpen] = useState(false);
  const closeRef = useRef<HTMLButtonElement>(null);
- useEffect(() => { if(!open) return; closeRef.current?.focus(); const handler=(e:KeyboardEvent)=>{if(e.key==='Escape')setOpen(false);}; document.addEventListener('keydown',handler); return ()=>document.removeEventListener('keydown',handler); },[open]);
- return <><Button variant={light?'secondary':'default'} className={`btn-brand ${light?'btn-light':''}`} onClick={()=>setOpen(true)}>{compact?<ArrowDownToLine size={16}/>:<svg width="17" height="20" viewBox="0 0 17 20" fill="currentColor" aria-hidden="true"><path d="M1 1v18l15-9L1 1Z"/></svg>}{compact?'Découvrir l’application':'Découvrir l’application'}{!compact&&<ArrowUpRight size={15}/>}</Button>
+ const triggerRef = useRef<HTMLButtonElement>(null);
+ useEffect(() => { if(!open) return; const previousOverflow=document.body.style.overflow; document.body.style.overflow='hidden'; closeRef.current?.focus(); const handler=(e:KeyboardEvent)=>{if(e.key==='Escape')setOpen(false);}; document.addEventListener('keydown',handler); return ()=>{document.removeEventListener('keydown',handler);document.body.style.overflow=previousOverflow;triggerRef.current?.focus();}; },[open]);
+ return <><Button ref={triggerRef} variant={light?'secondary':'default'} className={`btn-brand ${light?'btn-light':''}`} onClick={()=>setOpen(true)}>{compact?<ArrowDownToLine size={16}/>:<svg width="17" height="20" viewBox="0 0 17 20" fill="currentColor" aria-hidden="true"><path d="M1 1v18l15-9L1 1Z"/></svg>}Découvrir l’application{!compact&&<ArrowUpRight size={15}/>}</Button>
  {open&&<div className="modal-overlay" onClick={()=>setOpen(false)}><section className="download-modal" role="dialog" aria-modal="true" aria-labelledby="download-title" onClick={e=>e.stopPropagation()} onKeyDown={e=>{if(e.key==='Tab'){e.preventDefault();closeRef.current?.focus();}}}><Button ref={closeRef} variant="ghost" size="icon" className="modal-close" aria-label="Fermer" onClick={()=>setOpen(false)}><X/></Button><span className="brand-mark">z</span><h2 id="download-title">Zender237 sur Android</h2><p>Le lien officiel Google Play n’a pas encore été communiqué. Il sera ajouté après validation de la publication de l’application.</p><p className="mt-4">Téléchargez uniquement depuis une source officielle. Ne partagez jamais votre code secret.</p></section></div>}</>;
 }
 export function SiteHeader() {
@@ -26,5 +27,25 @@ const footerGroups=[
 ];
 export function SiteFooter(){return <footer className="site-footer"><div className="site-container"><div className="footer-grid"><div className="footer-brand-column"><Brand/><p className="footer-description">Vos opérations, simplement.<br/>Une application pensée pour gérer et suivre vos demandes depuis votre téléphone.</p></div>{footerGroups.map(g=><div key={g.title}><h3>{g.title}</h3><nav aria-label={g.title}>{g.links.map(l=><Link key={l.to} to={l.to}>{l.label}</Link>)}</nav></div>)}</div><div className="footer-bottom"><span>© 2026 Zender237. Tous droits réservés.</span><span>Version de préparation · Informations officielles à confirmer</span></div></div></footer>;}
 export function AssistanceBand(){return <section className="cta-band"><div className="site-container cta-inner"><div><h2>Une question ? Parlons-en.</h2><p>Pour votre compte ou une transaction, nous sommes à votre écoute.</p></div><Button asChild variant="secondary" className="btn-brand btn-light"><Link to="/contact">Contacter l’assistance <ArrowRight/></Link></Button></div></section>;}
-export function ScrollMotion(){ useEffect(()=>{document.documentElement.classList.add('motion-ready'); const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target);}}),{threshold:.08}); const observe=()=>document.querySelectorAll('[data-reveal]:not(.is-visible)').forEach(el=>observer.observe(el));observe();const mutation=new MutationObserver(observe);mutation.observe(document.body,{childList:true,subtree:true});return()=>{observer.disconnect();mutation.disconnect();document.documentElement.classList.remove('motion-ready');};},[]);return null;}
+export function ScrollMotion(){
+ const pathname=useRouterState({select:state=>state.location.pathname});
+ useEffect(()=>{
+  const root=document.documentElement;
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target);}}),{threshold:.06});
+  const sectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;document.querySelectorAll('.contents-nav a[href^="#"]').forEach(link=>{if(link.getAttribute('href')===`#${entry.target.id}`)link.setAttribute('aria-current','true');else link.removeAttribute('aria-current');});}),{rootMargin:'-15% 0px -65% 0px'});
+  const observe=()=>{document.querySelectorAll('.document>h2,.document>h3,.document>p,.document>ul,.document>ol,.document>.faq-item,.calculator,.support-form').forEach(el=>el.setAttribute('data-reveal',''));document.querySelectorAll('[data-reveal]:not(.is-visible)').forEach(el=>observer.observe(el));document.querySelectorAll('.document h2[id]').forEach(el=>sectionObserver.observe(el));};
+  observe();root.classList.add('motion-ready');
+  const mutation=new MutationObserver(observe);mutation.observe(document.body,{childList:true,subtree:true});
+  let frame=0;
+  const update=()=>{frame=0;const total=root.scrollHeight-window.innerHeight;root.style.setProperty('--read-progress',String(total>0?window.scrollY/total:0));};
+  const scroll=()=>{if(!frame)frame=requestAnimationFrame(update);};
+  window.addEventListener('scroll',scroll,{passive:true});update();
+  const tilt=(e:PointerEvent)=>{if(reduced||e.pointerType==='touch'||!(e.target instanceof Element))return;const tile=e.target.closest('[data-tilt]');if(!(tile instanceof HTMLElement))return;const rect=tile.getBoundingClientRect();const x=(e.clientX-rect.left)/rect.width-.5;const y=(e.clientY-rect.top)/rect.height-.5;tile.getAnimations().forEach(a=>a.cancel());tile.animate([{transform:`perspective(900px) rotateX(${-y*5}deg) rotateY(${x*5}deg)`}],{duration:200,fill:'forwards'});};
+  const reset=(e:PointerEvent)=>{if(!(e.target instanceof Element))return;const tile=e.target.closest('[data-tilt]');if(tile instanceof HTMLElement&&(!(e.relatedTarget instanceof Node)||!tile.contains(e.relatedTarget))){tile.getAnimations().forEach(a=>a.cancel());tile.animate([{transform:'perspective(900px) rotateX(0deg) rotateY(0deg)'}],{duration:300,fill:'forwards'});}};
+  document.addEventListener('pointermove',tilt);document.addEventListener('pointerout',reset);
+  return()=>{observer.disconnect();sectionObserver.disconnect();mutation.disconnect();window.removeEventListener('scroll',scroll);document.removeEventListener('pointermove',tilt);document.removeEventListener('pointerout',reset);cancelAnimationFrame(frame);root.classList.remove('motion-ready');};
+ },[pathname]);
+ return <div className="scroll-progress" aria-hidden="true"/>;
+}
 export function DraftNotice({ fees = false }: {fees?:boolean}){return <aside className="draft-notice"><strong>{fees?'Grille fournie · À confirmer avant publication':'Document de préparation · Informations à compléter'}</strong>{fees?'Les taux ci-dessous proviennent du document Zender237. Leur application en production, les plafonds et les règles d’arrondi doivent être confirmés.':'Les champs entre crochets proviennent du document fourni et ne sont pas des informations officielles validées. L’identité de l’éditeur, les contacts, les prestataires et les pratiques de conservation doivent être complétés avant publication.'}</aside>;}
