@@ -22,7 +22,7 @@ const faqs = [
 function Home() {
   return <>
     <section className="hero immersive-hero"><img src={lifestyle} alt="Une utilisatrice consulte son téléphone" className="hero-photo"/><div className="hero-scrim"/><div className="hero-grain" aria-hidden="true"/><div className="site-container hero-content">
-      <span className="eyebrow"><span className="eyebrow-dot" />Application Android · Cameroun</span>
+      <span className="eyebrow"><span className="eyebrow-dot" />Application Android · Internationale </span>
       <h1 className="cinema-type" aria-label="Zender237" data-reveal>{'Zender'.split('').map((letter, i) => <span key={i}>{letter}</span>)}<span className="brand-number">237</span><span className="hero-period">.</span></h1>
       <p className="hero-tagline" data-reveal>Vos opérations.<br/><span>Une nouvelle perspective.</span></p>
       <p className="hero-description" data-reveal>Préparez. Vérifiez. Suivez.<br/>L’essentiel de vos opérations, dans votre poche.</p>

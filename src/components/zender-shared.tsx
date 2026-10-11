@@ -2,19 +2,20 @@ import { Link, useRouterState } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowDownToLine, ArrowUpRight, Menu, X, ArrowRight, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import logo from '@/assets/icon.png';
 export const navItems = [
  {to:'/' as const,label:'Accueil'}, {to:'/comment-ca-marche' as const,label:'Fonctionnement'},
  {to:'/tarifs' as const,label:'Tarifs'}, {to:'/a-propos' as const,label:'À propos'},
  {to:'/aide' as const,label:'Aide'}, {to:'/contact' as const,label:'Contact'},
 ];
-export function Brand() { return <Link to="/" className="brand" aria-label="Zender237, accueil"><span className="brand-mark" aria-hidden="true">z</span><span>Zender<span className="brand-number">237</span></span></Link>; }
+export function Brand() { return <Link to="/" className="brand" aria-label="Zender237, accueil"><img src={logo} alt="" aria-hidden="true" className="brand-logo" /></Link>; }
 export function DownloadButton({ light = false, compact = false }: { light?: boolean; compact?: boolean }) {
  const [open, setOpen] = useState(false);
  const closeRef = useRef<HTMLButtonElement>(null);
  const triggerRef = useRef<HTMLButtonElement>(null);
  useEffect(() => { if(!open) return; const previousOverflow=document.body.style.overflow; document.body.style.overflow='hidden'; closeRef.current?.focus(); const handler=(e:KeyboardEvent)=>{if(e.key==='Escape')setOpen(false);}; document.addEventListener('keydown',handler); return ()=>{document.removeEventListener('keydown',handler);document.body.style.overflow=previousOverflow;triggerRef.current?.focus();}; },[open]);
  return <><Button ref={triggerRef} variant={light?'secondary':'default'} className={`btn-brand ${light?'btn-light':''}`} onClick={()=>setOpen(true)}>{compact?<ArrowDownToLine size={16}/>:<svg width="17" height="20" viewBox="0 0 17 20" fill="currentColor" aria-hidden="true"><path d="M1 1v18l15-9L1 1Z"/></svg>}Découvrir l’application{!compact&&<ArrowUpRight size={15}/>}</Button>
- {open&&<div className="modal-overlay" onClick={()=>setOpen(false)}><section className="download-modal" role="dialog" aria-modal="true" aria-labelledby="download-title" onClick={e=>e.stopPropagation()} onKeyDown={e=>{if(e.key==='Tab'){e.preventDefault();closeRef.current?.focus();}}}><Button ref={closeRef} variant="ghost" size="icon" className="modal-close" aria-label="Fermer" onClick={()=>setOpen(false)}><X/></Button><span className="brand-mark">z</span><h2 id="download-title">Zender237 sur Android</h2><p>Le lien officiel Google Play n’a pas encore été communiqué. Il sera ajouté après validation de la publication de l’application.</p><p className="mt-4">Téléchargez uniquement depuis une source officielle. Ne partagez jamais votre code secret.</p></section></div>}</>;
+ {open&&<div className="modal-overlay" onClick={()=>setOpen(false)}><section className="download-modal" role="dialog" aria-modal="true" aria-labelledby="download-title" onClick={e=>e.stopPropagation()} onKeyDown={e=>{if(e.key==='Tab'){e.preventDefault();closeRef.current?.focus();}}}><Button ref={closeRef} variant="ghost" size="icon" className="modal-close" aria-label="Fermer" onClick={()=>setOpen(false)}><X/></Button><img src={logo} alt="" aria-hidden="true" className="brand-logo"/><h2 id="download-title">Zender237 sur Android</h2><p>Le lien officiel Google Play n’a pas encore été communiqué. Il sera ajouté après validation de la publication de l’application.</p><p className="mt-4">Téléchargez uniquement depuis une source officielle. Ne partagez jamais votre code secret.</p></section></div>}</>;
 }
 export function SiteHeader() {
  const [open,setOpen]=useState(false);

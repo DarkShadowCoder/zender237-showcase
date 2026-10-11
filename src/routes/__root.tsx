@@ -11,6 +11,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import logo from "../assets/icon.png";
 import appCss from "../styles.css?url";
 import { SiteHeader, SiteFooter, ScrollMotion } from "@/components/zender-shared";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -96,7 +97,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: logo, type: "image/png" },
     ],
   }),
   shellComponent: RootShell,
