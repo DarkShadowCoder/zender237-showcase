@@ -578,3 +578,5 @@ html { scroll-behavior:smooth; }
 .immersive-hero { color:var(--foreground); }
 .operation-preview:hover .phone,.operation-preview:focus-within .phone { animation-play-state:paused; }
 @media(prefers-reduced-motion:reduce) { .operation-preview .phone {animation:none;} }
+.operation-preview:has(.phone:hover) .phone,.operation-preview:has(.phone:focus-within) .phone { animation:none; }
+@media(max-width:760px) { .hero-device {display:none;} .immersive-hero .hero-content {min-height:calc(100svh - 160px);padding-bottom:95px;} }
