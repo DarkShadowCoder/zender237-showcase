@@ -51,4 +51,4 @@ export function ScrollMotion(){
  },[pathname]);
  return <div className="scroll-progress" aria-hidden="true"/>;
 }
-export function DraftNotice({ fees = false }: {fees?:boolean}){return <aside className="draft-notice"><strong>{fees?'Grille fournie · À confirmer avant publication':'Document de préparation · Informations à compléter'}</strong>{fees?'Les taux ci-dessous proviennent du document Zender237. Leur application en production, les plafonds et les règles d’arrondi doivent être confirmés.':'Les champs entre crochets proviennent du document fourni et ne sont pas des informations officielles validées. L’identité de l’éditeur, les contacts, les prestataires et les pratiques de conservation doivent être complétés avant publication.'}</aside>;}
+export function DraftNotice({ fees = false }: {fees?:boolean}){return <aside></aside>;}
