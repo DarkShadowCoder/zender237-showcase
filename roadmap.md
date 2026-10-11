@@ -1,5 +1,5 @@
 # Zender237
-- [ ] Renouveler l'accueil et toutes les pages avec une composition créative et des animations expressives.
+- [ ] Créer l’accueil immersif sombre : Bento asymétrique, accents néon, typographie cinématique et scrollytelling ; harmoniser les pages et composants généraux.
 - [x] Intégrer les 14 pages et tout le contenu fourni.
 - [x] Enregistrer les demandes de contact, suppression et réclamation de manière privée.
 - [ ] Corriger les erreurs constatées et vérifier les liens, les tarifs et l'affichage.
