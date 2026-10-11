@@ -22,6 +22,7 @@ export function OperationStory() {
     return () => observer.disconnect();
   }, []);
   const current = steps[active] ?? steps[0];
+  if (!current) return null;
   const Icon = current.icon;
   return <section className="story-section" ref={root}>
     <div className="site-container story-heading" data-reveal><span className="eyebrow">De l’idée à l’opération</span><h2>Un mouvement.<br /><span>Quatre étapes.</span></h2><span className="section-count">02 / Fonctionnement</span></div>

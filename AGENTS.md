@@ -11,3 +11,4 @@
 
 - Keep shared page presentation in ContentPage and global visual tokens in src/styles.css so all informational pages retain a consistent editorial hierarchy.
 - Keep progressive scroll and pointer effects in ScrollMotion with cleanup and reduced-motion support so navigation never leaves stale observers or inaccessible hidden content.
+- Keep homepage app previews and scroll-driven chapters in dedicated browser-safe components so interactive presentation stays isolated from informational content and business rules.

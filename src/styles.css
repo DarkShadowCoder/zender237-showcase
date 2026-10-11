@@ -575,3 +575,6 @@ html { scroll-behavior:smooth; }
 @media(max-width:380px) { .immersive-hero h1 {font-size:49px;} .immersive-hero .hero-tagline {font-size:28px;} .security-tile,.tracking-tile {padding:16px;} .security-tile h3,.tracking-tile h3 {font-size:19px;} .daily-heading h2 {font-size:34px;} }
 @media(prefers-reduced-motion:reduce) { .motion-ready [data-reveal]:not(.is-visible) {opacity:1;transform:none;filter:none;} .immersive-hero .hero-photo {transform:none;} }
 .motion-reduced [data-reveal] {opacity:1!important;transform:none!important;filter:none!important;}
+.immersive-hero { color:var(--foreground); }
+.operation-preview:hover .phone,.operation-preview:focus-within .phone { animation-play-state:paused; }
+@media(prefers-reduced-motion:reduce) { .operation-preview .phone {animation:none;} }
