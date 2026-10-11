@@ -31,20 +31,22 @@ export function ScrollMotion(){
  const pathname=useRouterState({select:state=>state.location.pathname});
  useEffect(()=>{
   const root=document.documentElement;
-  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+   const motionPreference=window.matchMedia('(prefers-reduced-motion: reduce)');
+   const syncMotion=()=>{root.classList.toggle('motion-reduced',motionPreference.matches);};
+   syncMotion();motionPreference.addEventListener('change',syncMotion);
   const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target);}}),{threshold:.06});
   const sectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;document.querySelectorAll('.contents-nav a[href^="#"]').forEach(link=>{if(link.getAttribute('href')===`#${entry.target.id}`)link.setAttribute('aria-current','true');else link.removeAttribute('aria-current');});}),{rootMargin:'-15% 0px -65% 0px'});
   const observe=()=>{document.querySelectorAll('.document>h2,.document>h3,.document>p,.document>ul,.document>ol,.document>.faq-item,.calculator,.support-form').forEach(el=>el.setAttribute('data-reveal',''));document.querySelectorAll('[data-reveal]:not(.is-visible)').forEach(el=>observer.observe(el));document.querySelectorAll('.document h2[id]').forEach(el=>sectionObserver.observe(el));};
   observe();root.classList.add('motion-ready');
   const mutation=new MutationObserver(observe);mutation.observe(document.body,{childList:true,subtree:true});
   let frame=0;
-  const update=()=>{frame=0;const total=root.scrollHeight-window.innerHeight;root.style.setProperty('--read-progress',String(total>0?window.scrollY/total:0));};
+   const update=()=>{frame=0;const total=root.scrollHeight-window.innerHeight;root.style.setProperty('--read-progress',String(total>0?window.scrollY/total:0));const hero=document.querySelector('.immersive-hero');if(hero instanceof HTMLElement&&!motionPreference.matches){const progress=Math.min(1,Math.max(0,window.scrollY/hero.offsetHeight));hero.style.setProperty('--hero-drift',`${progress*90}px`);hero.style.setProperty('--hero-depth',String(1+progress*.08));}};
   const scroll=()=>{if(!frame)frame=requestAnimationFrame(update);};
   window.addEventListener('scroll',scroll,{passive:true});update();
-  const tilt=(e:PointerEvent)=>{if(reduced||e.pointerType==='touch'||!(e.target instanceof Element))return;const tile=e.target.closest('[data-tilt]');if(!(tile instanceof HTMLElement))return;const rect=tile.getBoundingClientRect();const x=(e.clientX-rect.left)/rect.width-.5;const y=(e.clientY-rect.top)/rect.height-.5;tile.getAnimations().forEach(a=>a.cancel());tile.animate([{transform:`perspective(900px) rotateX(${-y*5}deg) rotateY(${x*5}deg)`}],{duration:200,fill:'forwards'});};
+   const tilt=(e:PointerEvent)=>{if(motionPreference.matches||e.pointerType==='touch'||!(e.target instanceof Element))return;const tile=e.target.closest('[data-tilt]');if(!(tile instanceof HTMLElement))return;const rect=tile.getBoundingClientRect();const x=(e.clientX-rect.left)/rect.width-.5;const y=(e.clientY-rect.top)/rect.height-.5;tile.getAnimations().forEach(a=>a.cancel());tile.animate([{transform:`perspective(900px) rotateX(${-y*5}deg) rotateY(${x*5}deg)`}],{duration:200,fill:'forwards'});};
   const reset=(e:PointerEvent)=>{if(!(e.target instanceof Element))return;const tile=e.target.closest('[data-tilt]');if(tile instanceof HTMLElement&&(!(e.relatedTarget instanceof Node)||!tile.contains(e.relatedTarget))){tile.getAnimations().forEach(a=>a.cancel());tile.animate([{transform:'perspective(900px) rotateX(0deg) rotateY(0deg)'}],{duration:300,fill:'forwards'});}};
   document.addEventListener('pointermove',tilt);document.addEventListener('pointerout',reset);
-  return()=>{observer.disconnect();sectionObserver.disconnect();mutation.disconnect();window.removeEventListener('scroll',scroll);document.removeEventListener('pointermove',tilt);document.removeEventListener('pointerout',reset);cancelAnimationFrame(frame);root.classList.remove('motion-ready');};
+  return()=>{observer.disconnect();sectionObserver.disconnect();mutation.disconnect();window.removeEventListener('scroll',scroll);document.removeEventListener('pointermove',tilt);document.removeEventListener('pointerout',reset);cancelAnimationFrame(frame);motionPreference.removeEventListener('change',syncMotion);document.querySelectorAll('[data-tilt]').forEach(el=>el.getAnimations().forEach(animation=>animation.cancel()));document.querySelector('.immersive-hero')?.removeAttribute('style');root.style.removeProperty('--read-progress');root.classList.remove('motion-ready','motion-reduced');};
  },[pathname]);
  return <div className="scroll-progress" aria-hidden="true"/>;
 }
